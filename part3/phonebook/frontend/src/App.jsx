@@ -70,7 +70,7 @@ function App() {
     } else {
       const personObject = {
         name: newName,
-        number: newPhone
+        phone: newPhone
       }
 
       personService
