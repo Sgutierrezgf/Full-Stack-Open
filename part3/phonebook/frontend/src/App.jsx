@@ -39,11 +39,11 @@ function App() {
     )
 
     if (personExists) {
-      if (personExists.number !== newPhone) {
+      if (personExists.phone !== newPhone) {
         if (window.confirm(
           `${newName} is already added to the phonebook, replace the old number with a new one?`
         )) {
-          const updatedPerson = { ...personExists, number: newPhone }
+          const updatedPerson = { ...personExists, phone: newPhone }
 
           personService
             .update(personExists.id, updatedPerson)
@@ -76,15 +76,16 @@ function App() {
       personService
         .create(personObject)
         .then(returnedPerson => {
-          setPersons(persons.concat(returnedPerson))
-          setNewName('')
-          setNewPhone('')
-          showNotification(`Added ${newName}`, 'success')
+          setPersons(persons.concat(returnedPerson));
+          setNewName('');
+          setNewPhone('');
+          showNotification(`Added ${newName}`, 'success');
         })
         .catch(error => {
-          console.error('Error adding person:', error)
-          showNotification('Error adding person', 'error')
-        })
+          console.error('Error adding person:', error);
+          // Mostrar mensaje de error del backend
+          showNotification(error.response.data.error, 'error');
+        });
     }
   }
 
